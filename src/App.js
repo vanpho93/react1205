@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import Word from './components/Word';
 import Loop from './components/Loop';
-import logo from './logo.svg';
 import './App.css';
+
+const words = [
+  { id: 'a1', en: 'One', vn: 'Mot', isMemorized: true },
+  { id: 'a2', en: 'Two', vn: 'Hai', isMemorized: false },
+  { id: 'a3', en: 'Three', vn: 'Ba', isMemorized: true }
+];
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <Word wordInfo={{ en: 'One', vn: 'Mot', isMemorized: true }} />
-        <Word wordInfo={{ en: 'Two', vn: 'Hai', isMemorized: false }} />
-        <Word wordInfo={{ en: 'Three', vn: 'Ba', isMemorized: true }} /> */}
-        <Loop />
+        { words.map(word => <Word wordInfo={word} />) }
+        {/* <Loop /> */}
       </div>
     );
   }
