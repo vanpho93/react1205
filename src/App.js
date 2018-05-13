@@ -7,7 +7,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Word />
+        <Word wordInfo={{ en: 'One', vn: 'Mot', isMemorized: true }} />
+        <Word wordInfo={{ en: 'Two', vn: 'Hai', isMemorized: false }} />
+        <Word wordInfo={{ en: 'Three', vn: 'Ba', isMemorized: true }} />
       </div>
     );
   }
