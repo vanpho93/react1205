@@ -14,6 +14,11 @@ export default class List extends Component {
         this.getWordItem = this.getWordItem.bind(this);
     }
 
+    removeWord(id) {
+        const words = this.state.words.filter(w => w.id !== id);
+        this.setState({ words });
+    }
+
     getWordItem(word) {
         return (
             <div className="word" key={word.id}>
@@ -29,10 +34,7 @@ export default class List extends Component {
                 </button>
                 <button
                     className="btn btn-warning"
-                    onClick={() => {
-                        const words = this.state.words.filter(w => w.id !== word.id);
-                        this.setState({ words });
-                    }}
+                    onClick={() => this.removeWord(word.id)}
                 >
                     Remove
                 </button>
@@ -44,7 +46,7 @@ export default class List extends Component {
     render() {
         return (
             <div className="App">
-                { this.state.words.map(this.getWordItem) }
+                { this.state.words.map(word => this.getWordItem(word)) }
             </div>
         );
     }
