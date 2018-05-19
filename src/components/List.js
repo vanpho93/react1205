@@ -10,7 +10,7 @@ const words = [
 export default class List extends Component {
     constructor(props) {
         super(props);
-        this.state = { words, txtEn: '', txtVn: '' };
+        this.state = { words, txtEn: '', txtVn: '', shouldShowForm: false };
         this.getWordItem = this.getWordItem.bind(this);
         this.addWord = this.addWord.bind(this);
     }
@@ -55,6 +55,41 @@ export default class List extends Component {
         );
     }
 
+    getForm() {
+        const { txtEn, txtVn } = this.state;
+        if (!this.state.shouldShowForm) return (
+            <button className="btn btn-success">+</button>
+        );
+        return (
+            <div className="form-group" className="word-form">
+                <input
+                    placeholder="English"
+                    className="form-control"
+                    value={txtEn}
+                    onChange={evt => this.setState({ txtEn: evt.target.value })}
+                />
+                <br />
+                <input
+                    placeholder="Vietnamese"
+                    className="form-control"
+                    value={txtVn}
+                    onChange={evt => this.setState({ txtVn: evt.target.value })}
+                />
+                <br />
+                <div className="btn-container">
+                    <button className="btn btn-success" onClick={this.addWord}>
+                        Add word
+                    </button>
+                    <button
+                        className="btn btn-danger"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     addWord() {
         const { words, txtEn, txtVn } = this.state;
         const word = {
@@ -68,35 +103,10 @@ export default class List extends Component {
     }
 
     render() {
-        const { words, txtEn, txtVn } = this.state;
+        const { words, txtEn, txtVn, shouldShowForm } = this.state;
         return (
             <div className="App">
-                <div className="form-group" className="word-form">
-                    <input
-                        placeholder="English"
-                        className="form-control"
-                        value={txtEn}
-                        onChange={evt => this.setState({ txtEn: evt.target.value })}
-                    />
-                    <br />
-                    <input
-                        placeholder="Vietnamese"
-                        className="form-control"
-                        value={txtVn}
-                        onChange={evt => this.setState({ txtVn: evt.target.value })}
-                    />
-                    <br />
-                    <div className="btn-container">
-                        <button className="btn btn-success" onClick={this.addWord}>
-                            Add word
-                        </button>
-                        <button
-                            className="btn btn-danger"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
+                { this.getForm() }
                 { words.map(word => this.getWordItem(word)) }
             </div>
         );
