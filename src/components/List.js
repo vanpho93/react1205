@@ -9,7 +9,7 @@ const words = [
 export default class List extends Component {
     constructor(props) {
         super(props);
-        this.state = { words, txtEn: '', txtVn: '', shouldShowForm: false };
+        this.state = { words, txtEn: '', txtVn: '', shouldShowForm: false, filterMode: 'SHOW_ALL' };
         this.getWordItem = this.getWordItem.bind(this);
         this.addWord = this.addWord.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
@@ -29,6 +29,9 @@ export default class List extends Component {
     }
 
     getWordItem(word) {
+        const { filterMode } = this.state;
+        if (filterMode === 'SHOW_FORGOT' && word.isMemorized) return null; 
+        if (filterMode === 'SHOW_MEMORIZED' && !word.isMemorized) return null; 
         return (
             <div className="word" key={word.id}>
                 <div className="word-container">
@@ -58,7 +61,7 @@ export default class List extends Component {
     getForm() {
         const { txtEn, txtVn } = this.state;
         if (!this.state.shouldShowForm) return (
-            <button className="btn btn-success" onClick={this.toggleForm}>
+            <button className="btn btn-success" style={{ margin: 10 }} onClick={this.toggleForm}>
                 +
             </button>
         );
@@ -110,10 +113,20 @@ export default class List extends Component {
     }
 
     render() {
-        const { words } = this.state;
+        const { words, filterMode } = this.state;
         return (
             <div className="App">
                 { this.getForm() }
+                <select
+                    className="form-control"
+                    style={{ width: 200, margin: 10 }}
+                    value={filterMode}
+                    onChange={evt => this.setState({ filterMode: evt.target.value })}
+                >
+                    <option value="SHOW_ALL">SHOW ALL</option>
+                    <option value="SHOW_MEMORIZED">SHOW MEMORIZED</option>
+                    <option value="SHOW_FORGOT">SHOW FORGOT</option>
+                </select>
                 { words.map(word => this.getWordItem(word)) }
             </div>
         );
