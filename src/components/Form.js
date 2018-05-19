@@ -7,7 +7,7 @@ export default class Form extends Component {
     }
     render() {
         return (
-            <div className="form-group" className="word-form">
+            <div className="form-group word-form">
                 <input
                     placeholder="English"
                     className="form-control"

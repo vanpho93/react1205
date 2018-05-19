@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Word from './Word';
 
 const words = [
     { id: 'a1', en: 'One', vn: 'Mot', isMemorized: true },
@@ -64,7 +63,7 @@ export default class List extends Component {
             </button>
         );
         return (
-            <div className="form-group" className="word-form">
+            <div className="form-group word-form">
                 <input
                     placeholder="English"
                     className="form-control"
@@ -111,7 +110,7 @@ export default class List extends Component {
     }
 
     render() {
-        const { words, txtEn, txtVn, shouldShowForm } = this.state;
+        const { words } = this.state;
         return (
             <div className="App">
                 { this.getForm() }
