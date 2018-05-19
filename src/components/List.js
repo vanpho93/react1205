@@ -13,6 +13,7 @@ export default class List extends Component {
         this.state = { words, txtEn: '', txtVn: '', shouldShowForm: false };
         this.getWordItem = this.getWordItem.bind(this);
         this.addWord = this.addWord.bind(this);
+        this.toggleForm = this.toggleForm.bind(this);
     }
 
     removeWord(id) {
@@ -58,7 +59,9 @@ export default class List extends Component {
     getForm() {
         const { txtEn, txtVn } = this.state;
         if (!this.state.shouldShowForm) return (
-            <button className="btn btn-success">+</button>
+            <button className="btn btn-success" onClick={this.toggleForm}>
+                +
+            </button>
         );
         return (
             <div className="form-group" className="word-form">
@@ -82,6 +85,7 @@ export default class List extends Component {
                     </button>
                     <button
                         className="btn btn-danger"
+                        onClick={this.toggleForm}
                     >
                         Cancel
                     </button>
@@ -99,7 +103,11 @@ export default class List extends Component {
             isMemorized: false
         };
         const newWords = words.concat(word);
-        this.setState({ words: newWords, txtEn: '', txtVn: '' });
+        this.setState({ words: newWords, txtEn: '', txtVn: '', shouldShowForm: false });
+    }
+
+    toggleForm() {
+        this.setState({ shouldShowForm: !this.state.shouldShowForm });
     }
 
     render() {
