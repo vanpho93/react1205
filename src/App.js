@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Word from './components/Word';
-import Loop from './components/Loop';
 import './App.css';
 
 const words = [

@@ -9,12 +9,20 @@ class Word extends Component {
     }
     render() {
         const { en, vn, isMemorized } = this.props.wordInfo;
-        const color = isMemorized ? 'green' : 'red';
         return (
-            <div style={{ backgroundColor: '#D5D6D4', padding: '10px', margin: '10px', width: '200px', borderRadius: '5px' }}>
-                <h3 style={{ color, margin: '10px' }}>{en}</h3>
-                <p>{vn}</p>
+            <div className="word">
+                <div className="word-container">
+                <h3 className="text-success">{en}</h3>
+                <h3 className="text-danger">
+                    { isMemorized ? '----' : vn}
+                </h3>
+                </div>
+                <div className="btn-container">
                 { this.getButton() }
+                <button className="btn btn-warning">
+                    Remove
+                </button>
+                </div>
             </div>
         );
     }
