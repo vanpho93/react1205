@@ -12,6 +12,7 @@ export default class List extends Component {
         super(props);
         this.state = { words, txtEn: '', txtVn: '' };
         this.getWordItem = this.getWordItem.bind(this);
+        this.addWord = this.addWord.bind(this);
     }
 
     removeWord(id) {
@@ -54,6 +55,18 @@ export default class List extends Component {
         );
     }
 
+    addWord() {
+        const { words, txtEn, txtVn } = this.state;
+        const word = {
+            id: Math.random() + '',
+            en: txtEn,
+            vn: txtVn,
+            isMemorized: false
+        };
+        const newWords = words.concat(word);
+        this.setState({ words: newWords, txtEn: '', txtVn: '' });
+    }
+
     render() {
         const { words, txtEn, txtVn } = this.state;
         return (
@@ -74,9 +87,7 @@ export default class List extends Component {
                     />
                     <br />
                     <div className="btn-container">
-                        <button className="btn btn-success" onClick={() => {
-                            
-                        }}>
+                        <button className="btn btn-success" onClick={this.addWord}>
                             Add word
                         </button>
                         <button
