@@ -11,6 +11,7 @@ export default class List extends Component {
     constructor(props) {
         super(props);
         this.state = { words };
+        this.getWordItem = this.getWordItem.bind(this);
     }
 
     getWordItem(word) {
@@ -26,7 +27,13 @@ export default class List extends Component {
                 <button className={word.isMemorized ? 'btn btn-success' : 'btn btn-danger'}>
                     {word.isMemorized ? 'Forgot' : 'Memorized'}
                 </button>
-                <button className="btn btn-warning">
+                <button
+                    className="btn btn-warning"
+                    onClick={() => {
+                        const words = this.state.words.filter(w => w.id !== word.id);
+                        this.setState({ words });
+                    }}
+                >
                     Remove
                 </button>
                 </div>
