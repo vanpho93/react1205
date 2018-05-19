@@ -4,7 +4,17 @@ export default class Box extends Component {
     constructor(props) {
         super(props);
         this.state = { value: 10 };
+        this.increase = this.increase.bind(this);
+        this.descrease = this.descrease.bind(this);
+        this.reset = this.reset.bind(this);
     }
+
+    increase() { this.setState({ value: this.state.value + 1 }); }
+
+    descrease() { this.setState({ value: this.state.value - 1 }); }
+
+    reset() { this.setState({ value: 1 }); }
+
     render() {
         const { value } = this.state;
         return (
@@ -12,19 +22,19 @@ export default class Box extends Component {
                 <h3>Value = {value}</h3>
                 <button
                     className="btn btn-success"
-                    onClick={() => this.setState({ value: value + 1 })}
+                    onClick={this.increase}
                 >
                     Increase
                 </button>
                 <button
                     className="btn btn-danger"
-                    onClick={() => this.setState({ value: value - 1 })}
+                    onClick={this.descrease}
                 >
                     Descrease
                 </button>
                 <button
                     className="btn btn-warning"
-                    onClick={() => this.setState({ value: 0 })}
+                    onClick={this.reset}
                 >
                     Reset
                 </button>
