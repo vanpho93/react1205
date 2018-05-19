@@ -28,10 +28,7 @@ export default class List extends Component {
         this.setState({ words });
     }
 
-    getWordItem(word) {
-        const { filterMode } = this.state;
-        if (filterMode === 'SHOW_FORGOT' && word.isMemorized) return null; 
-        if (filterMode === 'SHOW_MEMORIZED' && !word.isMemorized) return null; 
+    getWordItem(word) { 
         return (
             <div className="word" key={word.id}>
                 <div className="word-container">
@@ -98,6 +95,7 @@ export default class List extends Component {
 
     addWord() {
         const { words, txtEn, txtVn } = this.state;
+        if (txtEn === '' || txtVn === '') return alert('Khong duoc de trong');
         const word = {
             id: Math.random() + '',
             en: txtEn,
@@ -110,6 +108,15 @@ export default class List extends Component {
 
     toggleForm() {
         this.setState({ shouldShowForm: !this.state.shouldShowForm });
+    }
+
+    get filteredWords() {
+        const { words, filterMode } = this.state;
+        return words.filter(w => {
+            if (filterMode === 'SHOW_FORGOT' && w.isMemorized) return false; 
+            if (filterMode === 'SHOW_MEMORIZED' && !w.isMemorized) return false;
+            return true;
+        });
     }
 
     render() {
@@ -127,7 +134,7 @@ export default class List extends Component {
                     <option value="SHOW_MEMORIZED">SHOW MEMORIZED</option>
                     <option value="SHOW_FORGOT">SHOW FORGOT</option>
                 </select>
-                { words.map(word => this.getWordItem(word)) }
+                { this.filteredWords.map(word => this.getWordItem(word)) }
             </div>
         );
     }
