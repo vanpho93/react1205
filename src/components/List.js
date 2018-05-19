@@ -10,7 +10,7 @@ const words = [
 export default class List extends Component {
     constructor(props) {
         super(props);
-        this.state = { words };
+        this.state = { words, txtEn: '', txtVn: '' };
         this.getWordItem = this.getWordItem.bind(this);
     }
 
@@ -55,21 +55,28 @@ export default class List extends Component {
     }
 
     render() {
+        const { words, txtEn, txtVn } = this.state;
         return (
             <div className="App">
                 <div className="form-group" className="word-form">
                     <input
                         placeholder="English"
                         className="form-control"
+                        value={txtEn}
+                        onChange={evt => this.setState({ txtEn: evt.target.value })}
                     />
                     <br />
                     <input
                         placeholder="Vietnamese"
                         className="form-control"
+                        value={txtVn}
+                        onChange={evt => this.setState({ txtVn: evt.target.value })}
                     />
                     <br />
                     <div className="btn-container">
-                        <button className="btn btn-success" onClick={this.addWord}>
+                        <button className="btn btn-success" onClick={() => {
+                            
+                        }}>
                             Add word
                         </button>
                         <button
@@ -79,7 +86,7 @@ export default class List extends Component {
                         </button>
                     </div>
                 </div>
-                { this.state.words.map(word => this.getWordItem(word)) }
+                { words.map(word => this.getWordItem(word)) }
             </div>
         );
     }
