@@ -17,6 +17,14 @@ export default class List extends Component {
     removeWord(id) {
         const words = this.state.words.filter(w => w.id !== id);
         this.setState({ words });
+    } 
+    
+    toggleWord(id) {
+        const words = this.state.words.map(w => {
+            if (w.id !== id) return w;
+            return { ...w, isMemorized: !w.isMemorized };
+        });
+        this.setState({ words });
     }
 
     getWordItem(word) {
@@ -29,7 +37,10 @@ export default class List extends Component {
                 </h3>
                 </div>
                 <div className="btn-container">
-                <button className={word.isMemorized ? 'btn btn-success' : 'btn btn-danger'}>
+                <button
+                    className={word.isMemorized ? 'btn btn-success' : 'btn btn-danger'}
+                    onClick={() => this.toggleWord(word.id)}
+                >
                     {word.isMemorized ? 'Forgot' : 'Memorized'}
                 </button>
                 <button
