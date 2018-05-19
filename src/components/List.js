@@ -11,7 +11,7 @@ export default class List extends Component {
     render() {
         return (
             <div className="App">
-                { words.map(word => <Word wordInfo={word} />) }
+                { words.map(word => <Word wordInfo={word} key={word.id} />) }
             </div>
         );
     }
