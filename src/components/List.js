@@ -13,7 +13,7 @@ export default class List extends Component {
     constructor(props) {
         super(props);
         this.state = { words, txtEn: '', txtVn: '', shouldShowForm: false, filterMode: 'SHOW_ALL' };
-        this.addWord = this.addWord.bind(this);
+        this.onAddWord = this.onAddWord.bind(this);
         this.onToggleForm = this.onToggleForm.bind(this);
     }
 
@@ -30,17 +30,10 @@ export default class List extends Component {
         this.setState({ words });
     }
 
-    addWord() {
-        const { words, txtEn, txtVn } = this.state;
-        if (txtEn === '' || txtVn === '') return alert('Khong duoc de trong');
-        const word = {
-            id: Math.random() + '',
-            en: txtEn,
-            vn: txtVn,
-            isMemorized: false
-        };
+    onAddWord(word) {
+        const { words } = this.state;
         const newWords = words.concat(word);
-        this.setState({ words: newWords, txtEn: '', txtVn: '', shouldShowForm: false });
+        this.setState({ words: newWords, shouldShowForm: false });
     }
 
     onToggleForm() {
@@ -63,6 +56,7 @@ export default class List extends Component {
                 <Form
                     shouldShowForm={shouldShowForm}
                     onToggleForm={this.onToggleForm}
+                    onAddWord={this.onAddWord}
                 />
                 <Filter filterMode={filterMode} />
                 { this.filteredWords.map(word => <Word word={word} key={word.id} />) }

@@ -4,7 +4,22 @@ export default class Form extends Component {
     constructor(props) {
         super(props);
         this.state = { txtEn: '', txtVn: '' };
+        this.addWord = this.addWord.bind(this);
     }
+
+    addWord() {
+        const { txtEn, txtVn } = this.state;
+        const { onAddWord } = this.props;
+        const word = {
+            id: Date.now() + '',
+            en: txtEn,
+            vn: txtVn,
+            isMemorized: false
+        };
+        onAddWord(word);
+        this.setState({ txtEn: '', txtVn: '' });
+    }
+
     render() {
         const { txtEn, txtVn } = this.state;
         const { onToggleForm } = this.props;
@@ -30,7 +45,7 @@ export default class Form extends Component {
                 />
                 <br />
                 <div className="btn-container">
-                    <button className="btn btn-success">
+                    <button className="btn btn-success" onClick={this.addWord}>
                         Add word
                     </button>
                     <button
