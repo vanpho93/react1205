@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Child from './Child';
 
-export default class Parent extends Component {
+class Parent extends Component {
     render() {
         return (
             <div>
-                <h3>Value = 0</h3>
+                <h3>Value = {this.props.count}</h3>
                 <Child />
             </div>
         );
     }
 }
 
-class Child extends Component {
-    render() {
-        return (
-            <div>
-                <button className="btn btn-success">Increase</button>
-                <button className="btn btn-danger">Descrease</button>
-                <button className="btn btn-warning">Reset</button>
-            </div>
-        );
-    }
-}
+export default connect(state => ({ count: state.count }))(Parent);
