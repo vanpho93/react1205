@@ -7,8 +7,9 @@ export default class Form extends Component {
     }
     render() {
         const { txtEn, txtVn } = this.state;
+        const { onToggleForm } = this.props;
         if (!this.props.shouldShowForm) return (
-            <button className="btn btn-success" style={{ margin: 10 }} onClick={this.toggleForm}>
+            <button className="btn btn-success" style={{ margin: 10 }} onClick={onToggleForm}>
                 +
             </button>
         );
@@ -34,6 +35,7 @@ export default class Form extends Component {
                     </button>
                     <button
                         className="btn btn-danger"
+                        onClick={onToggleForm}
                     >
                         Cancel
                     </button>

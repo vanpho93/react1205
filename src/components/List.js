@@ -12,9 +12,9 @@ const words = [
 export default class List extends Component {
     constructor(props) {
         super(props);
-        this.state = { words, txtEn: '', txtVn: '', shouldShowForm: true, filterMode: 'SHOW_ALL' };
+        this.state = { words, txtEn: '', txtVn: '', shouldShowForm: false, filterMode: 'SHOW_ALL' };
         this.addWord = this.addWord.bind(this);
-        this.toggleForm = this.toggleForm.bind(this);
+        this.onToggleForm = this.onToggleForm.bind(this);
     }
 
     removeWord(id) {
@@ -43,7 +43,7 @@ export default class List extends Component {
         this.setState({ words: newWords, txtEn: '', txtVn: '', shouldShowForm: false });
     }
 
-    toggleForm() {
+    onToggleForm() {
         this.setState({ shouldShowForm: !this.state.shouldShowForm });
     }
 
@@ -60,7 +60,10 @@ export default class List extends Component {
         const { filterMode, shouldShowForm } = this.state;
         return (
             <div>
-                <Form shouldShowForm={shouldShowForm} />
+                <Form
+                    shouldShowForm={shouldShowForm}
+                    onToggleForm={this.onToggleForm}
+                />
                 <Filter filterMode={filterMode} />
                 { this.filteredWords.map(word => <Word word={word} key={word.id} />) }
             </div>

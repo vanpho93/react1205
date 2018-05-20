@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-// import List from './components/List';
-import Parent from './components/Parent';
+import List from './components/List';
 import './App.css';
 
 class App extends Component {
   render() {
-    return <Parent />;
+    return <List />;
   }
 }
 
