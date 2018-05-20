@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class Form extends Component {
+class Form extends Component {
     constructor(props) {
         super(props);
         this.state = { txtEn: '', txtVn: '' };
@@ -8,23 +9,23 @@ export default class Form extends Component {
     }
 
     addWord() {
+        const { dispatch } = this.props;
         const { txtEn, txtVn } = this.state;
-        const { onAddWord } = this.props;
         const word = {
-            id: Date.now() + '',
+            id: Date.now(),
             en: txtEn,
             vn: txtVn,
             isMemorized: false
         };
-        onAddWord(word);
+        dispatch({ type: 'ADD_WORD', word });
         this.setState({ txtEn: '', txtVn: '' });
     }
 
     render() {
         const { txtEn, txtVn } = this.state;
-        const { onToggleForm } = this.props;
+        const { dispatch } = this.props;
         if (!this.props.shouldShowForm) return (
-            <button className="btn btn-success" style={{ margin: 10 }} onClick={onToggleForm}>
+            <button className="btn btn-success" style={{ margin: 10 }} onClick={() => dispatch({ type: 'TOGGLE_FORM' })}>
                 +
             </button>
         );
@@ -50,7 +51,7 @@ export default class Form extends Component {
                     </button>
                     <button
                         className="btn btn-danger"
-                        onClick={onToggleForm}
+                        onClick={() => dispatch({ type: 'TOGGLE_FORM' })}
                     >
                         Cancel
                     </button>
@@ -59,3 +60,6 @@ export default class Form extends Component {
         );
     }
 }
+
+const mapState = state => ({ shouldShowForm: state.shouldShowForm });
+export default connect(mapState)(Form);
