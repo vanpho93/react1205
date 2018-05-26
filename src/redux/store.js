@@ -12,34 +12,23 @@ const defaultState = {
     filterMode: 'SHOW_ALL'
 };
 
-// function reducer(state = defaultState, action) {
-    //     if (action.type === 'TOGGLE_FORM') return { ...state, shouldShowForm: !state.shouldShowForm };
-    //     if (action.type === 'REMOVE_WORD') {
-    //         const words = state.words.filter(w => w.id !== action.id);
-    //         return { ...state, words };
-    //     }
-    //     if (action.type === 'TOGGLE_WORD') {
-    //         const words = state.words.map(w => {
-    //             if (w.id !== action.id) return w;
-    //             return { ...w, isMemorized: !w.isMemorized };
-    //         });
-    //         return { ...state, words };
-    //     }
-    //     if (action.type === 'ADD_WORD') {
-    //         return { ...state, words: state.words.concat(action.word), shouldShowForm: false }
-    //     }
-    //     if (action.type === 'SET_FILTER_MODE') {
-    //         return { ...state, filterMode: action.filterMode };
-    //     }
-    //     return state;
-// }
-
 function wordsReducer(state = defaultWords, action) {
+    if (action.type === 'ADD_WORD') return state.concat(action.word)
+    if (action.type === 'REMOVE_WORD') {
+        return state.filter(w => w.id !== action.id);
+    }
+    if (action.type === 'TOGGLE_WORD') {
+        return state.map(w => {
+            if (w.id !== action.id) return w;
+            return { ...w, isMemorized: !w.isMemorized };
+        });
+    }
     return state;
 }
 
 function shouldShowFormReducer(state = false, action) {
     if (action.type === 'TOGGLE_FORM') return !state;
+    if (action.type === 'ADD_WORD') return false;
     return state;
 }
 
