@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { toggleForm, addWord } from '../redux/actionCreators';
+import * as actionCreators from '../redux/actionCreators';
 
 class Form extends Component {
     constructor(props) {
@@ -63,4 +63,4 @@ class Form extends Component {
 }
 
 const mapState = state => ({ shouldShowForm: state.shouldShowForm });
-export default connect(mapState, { toggleForm, addWord })(Form);
+export default connect(mapState, actionCreators)(Form);
