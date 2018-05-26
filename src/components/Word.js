@@ -33,3 +33,6 @@ class Word extends Component {
 }
 
 export default connect(null, actionCreators)(Word);
+
+// Cai postman
+// dang ky mlab.com

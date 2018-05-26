@@ -3,9 +3,17 @@ import { connect } from 'react-redux';
 import Word from './Word';
 import Form from './Form';
 import Filter from './Filter';
-
+import axios from 'axios';
 
 class List extends Component {
+    componentDidMount() {
+        const URL = 'http://localhost:4000/word';
+        axios.get(URL)
+        .then(response => {
+            this.props.dispatch({ type: 'SET_WORDS', words: response.data.words })
+        });
+    }
+
     get filteredWords() {
         const { words, filterMode } = this.props;
         return words.filter(w => {
@@ -23,7 +31,7 @@ class List extends Component {
                 {
                     this.filteredWords.map(word => (
                         <Word
-                            key={word.id}
+                            key={word._id}
                             word={word}
                         />
                     ))
