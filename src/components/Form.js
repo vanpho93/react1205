@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { toggleForm, addWord } from '../redux/actionCreators';
 
 class Form extends Component {
     constructor(props) {
@@ -9,7 +10,7 @@ class Form extends Component {
     }
 
     addWord() {
-        const { dispatch } = this.props;
+        const { addWord } = this.props;
         const { txtEn, txtVn } = this.state;
         const word = {
             id: Date.now(),
@@ -17,15 +18,15 @@ class Form extends Component {
             vn: txtVn,
             isMemorized: false
         };
-        dispatch({ type: 'ADD_WORD', word });
+        addWord(word);
         this.setState({ txtEn: '', txtVn: '' });
     }
 
     render() {
         const { txtEn, txtVn } = this.state;
-        const { dispatch } = this.props;
+        const { toggleForm } = this.props;
         if (!this.props.shouldShowForm) return (
-            <button className="btn btn-success" style={{ margin: 10 }} onClick={() => dispatch({ type: 'TOGGLE_FORM' })}>
+            <button className="btn btn-success" style={{ margin: 10 }} onClick={toggleForm}>
                 +
             </button>
         );
@@ -51,7 +52,7 @@ class Form extends Component {
                     </button>
                     <button
                         className="btn btn-danger"
-                        onClick={() => dispatch({ type: 'TOGGLE_FORM' })}
+                        onClick={toggleForm}
                     >
                         Cancel
                     </button>
@@ -62,4 +63,4 @@ class Form extends Component {
 }
 
 const mapState = state => ({ shouldShowForm: state.shouldShowForm });
-export default connect(mapState)(Form);
+export default connect(mapState, { toggleForm, addWord })(Form);
