@@ -10,10 +10,10 @@ export function addWord(word) {
     return { type: 'ADD_WORD', word };
 }
 
-export function removeWord(id) {
-    return { type: 'REMOVE_WORD', id };
+export function removeWord(_id) {
+    return { type: 'REMOVE_WORD', _id };
 }
 
-export function toggleWord(id) {
-    return { type: 'TOGGLE_WORD', id };
+export function toggleWord(_id) {
+    return { type: 'TOGGLE_WORD', _id };
 }
