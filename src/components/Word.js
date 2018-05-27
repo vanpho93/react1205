@@ -6,15 +6,7 @@ import * as actionCreators from '../redux/actionCreators';
 class Word extends Component {
     constructor(props) {
         super(props);
-        this.removeWord = this.removeWord.bind(this);
         this.toggleWord = this.toggleWord.bind(this);
-    }
-
-    removeWord() {
-        const { word, removeWord } = this.props;
-        const URL = 'http://localhost:4000/word/' + word._id;
-        axios.delete(URL)
-        .then(() => removeWord(word._id));
     }
 
     toggleWord() {
@@ -25,7 +17,7 @@ class Word extends Component {
     }
 
     render() {
-        const { word } = this.props;
+        const { word, removeWord } = this.props;
         return (
             <div className="word">
                 <div className="word-container">
@@ -43,7 +35,7 @@ class Word extends Component {
                 </button>
                 <button
                     className="btn btn-warning"
-                    onClick={this.removeWord}
+                    onClick={() => removeWord(word._id)}
                 >
                     Remove
                 </button>
