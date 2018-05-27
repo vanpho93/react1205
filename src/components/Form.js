@@ -13,14 +13,8 @@ class Form extends Component {
     addWord() {
         const { addWord } = this.props;
         const { txtEn, txtVn } = this.state;
-        const URL = 'http://localhost:4000/word';
-        axios.post(URL, { en: txtEn, vn: txtVn })
-        .then(response => {
-            const { success, word } = response.data;
-            if (!success) return alert('Cannot add word.');
-            addWord(word);
-            this.setState({ txtEn: '', txtVn: '' });
-        });
+        addWord(txtEn, txtVn);
+        this.setState({ txtEn: '', txtVn: '' });
     }
 
     render() {

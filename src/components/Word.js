@@ -4,20 +4,8 @@ import axios from 'axios';
 import * as actionCreators from '../redux/actionCreators';
 
 class Word extends Component {
-    constructor(props) {
-        super(props);
-        this.toggleWord = this.toggleWord.bind(this);
-    }
-
-    toggleWord() {
-        const { word, toggleWord } = this.props;
-        const URL = 'http://localhost:4000/word/' + word._id;
-        axios.put(URL, { isMemorized: !word.isMemorized })
-        .then(() => toggleWord(word._id));
-    }
-
     render() {
-        const { word, removeWord } = this.props;
+        const { word, removeWord, toggleWord } = this.props;
         return (
             <div className="word">
                 <div className="word-container">
@@ -29,7 +17,7 @@ class Word extends Component {
                 <div className="btn-container">
                 <button
                     className={word.isMemorized ? 'btn btn-success' : 'btn btn-danger'}
-                    onClick={this.toggleWord}
+                    onClick={() => toggleWord(word._id, !word.isMemorized)}
                 >
                     {word.isMemorized ? 'Forgot' : 'Memorized'}
                 </button>
