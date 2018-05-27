@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import * as actionCreators from '../redux/actionCreators';
 
 class Form extends Component {
